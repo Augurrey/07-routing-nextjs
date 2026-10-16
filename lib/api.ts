@@ -4,12 +4,12 @@ import type { Note, NoteTag } from "@/types/note";
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
+  tag: NoteTag;
 }
 
 export interface CreateNoteData {
   title: string;
   content: string;
-  tag: NoteTag;
 }
 
 const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -25,12 +25,14 @@ export async function fetchNotes(
   search: string,
   page: number,
   perPage: number,
+  tag?: string,
 ): Promise<FetchNotesResponse> {
   const response = await api.get<FetchNotesResponse>("/notes", {
     params: {
       search,
       page,
       perPage,
+      ...(tag && { tag }),
     },
   });
 

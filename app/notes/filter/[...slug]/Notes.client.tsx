@@ -15,15 +15,15 @@ import css from "./NotesPage.module.css";
 
 const PER_PAGE = 12;
 
-export default function NotesClient() {
+export default function NotesByTagClient({ tag }: { tag: string }) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ["notes", search, page],
-    queryFn: () => fetchNotes(search, page, PER_PAGE),
+    queryKey: ["notes", search, page, tag],
+    queryFn: () => fetchNotes(search, page, PER_PAGE, tag),
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });
