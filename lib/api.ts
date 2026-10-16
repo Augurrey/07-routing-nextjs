@@ -4,13 +4,12 @@ import type { Note, NoteTag } from "@/types/note";
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
-  tag: NoteTag;
 }
 
 export interface CreateNoteData {
   title: string;
   content: string;
-  tag: string;
+  tag: NoteTag;
 }
 
 const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -25,7 +24,7 @@ const api = axios.create({
 export async function fetchNotes(
   search: string,
   page: number,
-  perPage: number,
+  perPage?: number,
   tag?: string,
 ): Promise<FetchNotesResponse> {
   const response = await api.get<FetchNotesResponse>("/notes", {
