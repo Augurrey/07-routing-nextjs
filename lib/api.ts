@@ -10,6 +10,7 @@ interface FetchNotesResponse {
 export interface CreateNoteData {
   title: string;
   content: string;
+  tag: string;
 }
 
 const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
